@@ -1,0 +1,101 @@
+<div class="row" *ngIf="viewMode">
+  <div class="col-12 d-flex justify-content-center mt-5" *ngIf="loading">
+    <div class="spinner-grow" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  <div class="col-12 mb-5" *ngIf="book?.name !==undefined">
+    <h3>Information detaillée</h3>
+  </div>
+  <div class="col-12 card" *ngIf="book?.name !==undefined">
+    <img src={{book?.image}} class="card-img-top" alt="..." style="height: 35vh;">
+    <div class="card-body">
+      <h5 class="card-title">{{book?.name}}</h5>
+      <p>Thème: {{book.nametheme}}</p>
+      <hr class="mt-1" style="color: antiquewhite;">
+      <p class="mb-2">Description:</p>
+      <p class="card-text ">{{book?.description}}</p>
+      <div class="d-flex" style="justify-content: space-between;font-size: smaller;">
+        <span class="p-1" style="font-size: smaller;">
+          Date de publication: {{book?.updatedAt | dateFormat: "local LLLL"}}
+        </span>
+        <span class="bg-success p-1" style="border-radius: 10px;">Livre {{book?.disponible?
+          "Disponible":"Non Disponible"
+          }}
+        </span>
+      </div>
+      <div class="d-flex mt-4" style="justify-content: space-between;" *ngIf="visibilite">
+        <a class="btn btn-warning" (click)="modifierItem()">Modifier</a>
+        <a class="btn btn-danger" (click)="deleteItem()">Supprimer</a>
+      </div>
+    </div>
+  </div>
+  <span class="text-danger" *ngIf="error!==undefined">{{error}}</span>
+</div>
+<div class="row d-flex justify-content-center" *ngIf="!viewMode">
+  <div class="col-12 d-flex justify-content-center mt-5" *ngIf="loading">
+    <div class="spinner-grow" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  <div class="col-8" style="
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  ">
+    <div *ngIf="book?._id" class="edit-form">
+      <h4>Modifier un livre</h4>
+      <form>
+        <div class="form-group">
+          <label for="nametheme">Thème</label>
+          <select class="form-control" id="nametheme" [(ngModel)]="book.nametheme" name="nametheme">
+            <option value="Romance">
+              Romance
+            </option>
+            <option value="Humour">
+              Humour </option>
+            <option value="Actualité">
+              Actualité </option>
+            <option value="Politique">
+              Politique
+            </option>
+            <option value="Action">
+              Action </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="name">Titre</label>
+          <input type="text" class="form-control" id="name" [(ngModel)]="book.name" name="name" />
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control" id="description" [(ngModel)]="book.description" name="description"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label><strong>Statut:</strong></label>
+          {{ book.disponible ? "Disponible" : "Non Disponible" }}
+        </div>
+        <div class="form-group">
+          <img *ngIf="book.image != undefined" src="{{ book.image }}" class="img-profile mb-2 mr-2" alt="image" />
+          <button class="btn btn-info" (click)="fileInput.click()">
+            Télécharger une image <input type="file" #fileInput (change)="onUploadChange($event)"
+              accept=".png, .jpg, .jpeg" style="display: none" />
+          </button>
+        </div>
+      </form>
+      <div class="d-flex  mb-2 mt-2" style="justify-content: space-between;">
+        <button class="btn btn-primary" *ngIf="book.disponible" (click)="updateDisponible(false)">
+          Depublier
+        </button>
+        <button *ngIf="!book.disponible" class="btn btn-primary" (click)="updateDisponible(true)">
+          Publier
+        </button>
+
+        <button type="submit" class="btn btn-success" (click)="updateItem()" [disabled]="loading">
+          Modifier
+        </button>
+      </div>
+      <p>{{ message }}</p>
+    </div>
+
+  </div>
+</div>

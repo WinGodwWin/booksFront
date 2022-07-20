@@ -1,0 +1,33 @@
+<div class="row align-items-center text-center" style="display: block ruby;">
+  <div class="col-md-8">
+    <div class="card-body">
+      <img src="../../../../assets/images/user.png" alt="user" class="img-fluid mb-4" />
+      <h4 class="mb-3 f-w-400">Connexion</h4>
+      <form>
+        <span *ngIf="invalidCredential != undefined" role="alert" class="text-center mb-3 text-danger">{{
+          invalidCredential }}</span>
+        <div class="form-group mb-3">
+          <input type="text" class="form-control" placeholder="Username" required id="username"
+            [(ngModel)]="loginform.username" name="username" />
+
+        </div>
+        <div class="form-group mb-4">
+          <span>
+            <input [type]="textType === true ? 'text' : 'password'" id="password" [(ngModel)]="loginform.password"
+              name="password" class="form-control" required placeholder="Password" />
+            <i [ngClass]="{
+                'pi-eye-slash': !textType,
+                'pi-eye': textType
+              }" class="icon-left pi" (click)="showPass()"></i>
+          </span>
+
+        </div>
+        <div class="row center-align">
+          <button [disabled]="isdisabled" class="btn btn-block btn-primary mb-4" (click)="login()">
+            Se Connecter
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

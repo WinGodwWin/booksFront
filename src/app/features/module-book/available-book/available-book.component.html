@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-12 col-md-6 mt-2" *ngFor="let item of tabData">
+    <div class="card">
+      <img src={{item.image}} class="card-img-top" alt="..." style="height: 130px;">
+      <div class="card-body">
+        <h5 class="card-title">{{item.name}}</h5>
+        <p class="card-text">{{item.description}}</p>
+        <div class="d-flex" style="justify-content: space-between;align-items: end;">
+          <a class="btn btn-primary" routerLink="/book/detail/{{ item._id }}">Voir Plus</a>
+          <a *ngIf="item.disponible" class="badge badge-success" style="height: fit-content;">
+            Disponible</a>
+          <a class="badge badge-warning" *ngIf="!item.disponible" style="height: fit-content;">
+            Non Disponible
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
