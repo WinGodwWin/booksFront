@@ -76,7 +76,7 @@ export class DetailBookComponent implements OnInit {
       next: (res: any) => {
         this.loading = false;
         this.message = 'Suppression reussi';
-        this.router.navigate(['/book']);
+        this.router.navigate(['/book/all']);
       },
       error: (e) => {
         this.loading = false;

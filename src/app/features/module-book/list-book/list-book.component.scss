@@ -1,3 +1,9 @@
 .search {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+p {
+  overflow: hidden !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 10 !important;
+  -webkit-box-orient: vertical !important;
+}
