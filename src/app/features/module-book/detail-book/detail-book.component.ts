@@ -51,6 +51,7 @@ export class DetailBookComponent implements OnInit {
         next: (resp: any) => {
           this.book = resp.data;
           this.loading = false;
+          if (this.book?.user == this.payload.id) this.visibilite = true;
         },
         error: (e) => {
           this.loading = false;
@@ -60,11 +61,6 @@ export class DetailBookComponent implements OnInit {
               'Les informations sur ce livre ne sont pas accessible. Veuillez reessayer plutard!';
         },
       });
-    if (
-      this._localStorageService.get(GLOBALS.LOGGED_ROLE) == Role.ROLE_USER &&
-      this.book?.user == this.payload._id
-    )
-      this.visibilite = true;
   }
 
   ngOnInit(): void {}
